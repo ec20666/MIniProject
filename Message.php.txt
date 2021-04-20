@@ -1,0 +1,37 @@
+<?php
+session_start()
+//intialising variables
+$name= "";
+$email = "";
+$message = "";
+
+$errors = array();
+
+
+//connect to db
+$db = mysqli_connect('localhost','root','','website') or die("could not connect to database")
+
+//get message
+$name= mysqli_real_escape_string($db, $_POST['name']);
+$email= mysqli_real_escape_string($db, $_POST['email']);
+$message= mysqli_real_escape_string($db, $_POST['message']);
+// form validation
+if(empty($name)) {array_push($errors, "Name is required")};
+if(empty($email)) {array_push($errors, "Email Adress is required")};
+if(empty($message)) {array_push($errors, "Message is required")};
+
+//check for existing user wit same user
+if($message){
+	if($website['email'] === $email){array_push($errors "This Email Adress is already registered to an other name");}
+
+}
+
+if(count($errors) == 0){
+
+	$query = "INSERT INTO validate_message(Name, Email, Message) VALUES ('$name' , '$email' , '$message');
+
+	mysqli_query($db,$query);
+	
+}
+
+?>
